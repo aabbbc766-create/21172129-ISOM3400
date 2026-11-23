@@ -12,11 +12,11 @@ grading = {
 
 # 1: SETUP
 # Task 1.1: Give the page a title (and optionally an icon) using st.set_page_config().
-st.set_page_config()
+st.set_page_config("ISOM 3400 Grade Calculator")
 
 # Task 1.2: Display a title on the app using st.title(). 
 #   You can also put more text/descriptions on the screen using st.write().
-st.title()
+st.title("ISOM3400 Expected Score Calculator")
 
 
 
@@ -30,11 +30,11 @@ with st.form("Score form"):
     #   Assign the values to the corresponding variables. (Please remove the "None" values!)
     #   
 
-    labs_attended = None
-    inclass_score = None
-    asm_score = None
-    midterm_score = None
-    final_score = None
+    labs_attended = st.number_input("Number of labs attended (max: 12)", min_value=0, max_value=12, step=1)
+    inclass_score = st.number_input("In-class exercises (out of 50)", min_value=0.0, max_value=50.0, step=1.0)
+    asm_score = st.number_input("Assignment score (out of 100)", min_value=0.0, max_value=100.0, step=1.0)
+    midterm_score = st.number_input("Midterm exam score (out of 100)", min_value=0.0, max_value=100.0, step=1.0)
+    final_score = st.number_input("Final exam score (out of 100)", min_value=0.0, max_value=100.0, step=1.0)
     
     # Don't forget the submit button! You can change the displayed text.
     click_submit = st.form_submit_button("Calculate my expected score!")
@@ -45,12 +45,15 @@ with st.form("Score form"):
 if click_submit:
 #   Task 3.1: Process the obtained values and calculate the total (weighted) score!
 #   (You can refer to the grading dictionary at the top for the weights.)
+    lab_weighted = (min(labs_attended, 6) / 6) * grading["Labs"]
+    inclass_weighted = (inclass_score / 50) * grading["In-class Exercises"]
+    asm_weighted = (asm_score / 100) * grading["Assignment"]
+    midterm_weighted = (midterm_score / 100) * grading["Midterm Exam"]
+    final_weighted = (final_score / 100) * grading["Final Exam"]
 
+    total_score = lab_weighted + inclass_weighted + asm_weighted + midterm_weighted + final_weighted
 
-
-
-
-
+    st.write(f"### Your expected total score is: **{total_score:.2f} / 100**")
 
 
 
