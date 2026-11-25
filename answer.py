@@ -47,13 +47,13 @@ with st.sidebar:
 
     )
 
-if show_sector：
+if show_sector:
     st.header("Market Cap by Sector")
     st.bar_chart(ticker_info, x = "Sector", y = "Market Cap (B)", color = "Ticker", horizontal = True, width = 720, height = 500)
 
 if selected_tickers:
 
-    chart_data = stock_data.query(f"Date <= '{selected_years[1]}-12-31' and Date >= '{selected_years[1]}-01-01}' and Ticker in ") 
+    chart_data = stock_data.query(f"Date <= '{selected_years[1]}-12-31' and Date >= '{selected_years[1]}-01-01' and Ticker in ") 
 
     st.header (f"Stock Trend Analysis ({selected_years[0]} - {selected_years[1]})")
 
